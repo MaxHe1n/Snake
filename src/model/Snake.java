@@ -64,10 +64,9 @@ public class Snake {
         head = point;
     }
 
-    // TODO - test
     private void updateSafety() {
-        for (Point point : position) {
-            if (head.equals(point)) {
+        for (int index = 0; index < position.size()-1; ++index) {
+            if (head.equals(position.get(index))) {
                 isSafe = false;
                 return;
             }
