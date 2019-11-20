@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class SnakeTest {
 
-    private Board board = new Board(10);
+    private Board board = new Board(500, 500);
 
     @Test
     public void moveRight() {

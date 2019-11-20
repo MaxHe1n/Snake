@@ -23,8 +23,8 @@ public class Snake {
     }
 
     public void update() {
-        Point pointRight = new Point((head.getXCord() + horizontalVelocity + board.getSize()) % board.getSize(),
-                                     (head.getYCord() + verticalVelocity + board.getSize()) % board.getSize());
+        Point pointRight = new Point((head.getXCord() + horizontalVelocity + board.getWidth()) % board.getWidth(),
+                                     (head.getYCord() + verticalVelocity + board.getHeight()) % board.getHeight());
         move(pointRight);
         updateSafety();
     }
@@ -39,6 +39,11 @@ public class Snake {
         if (verticalVelocity <= 1 && verticalVelocity >= -1) {
             this.verticalVelocity = verticalVelocity;
         }
+    }
+
+    public void grow() {
+        Point p = position.get(0);
+        position.add(0, p);
     }
 
     public Point getHead() {
