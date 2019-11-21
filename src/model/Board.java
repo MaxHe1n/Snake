@@ -1,6 +1,5 @@
 package model;
 
-// TODO - comments, javadocs, loging
 public class Board {
 
     private int width;
@@ -19,13 +18,15 @@ public class Board {
 
     void update() {
         if (snake.getHead().equals(food.getPosition())) {
-            score += 100;
-            for (int i = 0; i < food.getValue(); ++i) {
-                snake.grow();
-            }
-            food = new Food(this, 1);
+            food = foodEaten(food);
         }
         snake.update();
+    }
+
+    private Food foodEaten(Food f) {
+        score += f.getValue();
+        snake.grow();
+        return new Food(this, f.getValue());
     }
 
     int getWidth() {

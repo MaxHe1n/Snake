@@ -22,7 +22,7 @@ class Painter {
 
         // The score
         gc.setFill(Color.BEIGE);
-        gc.fillText("Score : " + board.getScore(), 10, 490);
+        gc.fillText("Score : " + board.getScore() * 10, 10, 490);
     }
 
     static void paintEndGame(GraphicsContext gc) {
