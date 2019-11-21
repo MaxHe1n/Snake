@@ -28,6 +28,6 @@ public class GameLoop implements Runnable {
                 delayTimer = System.currentTimeMillis();
             }
         }
-        // TODO - add end game view
+        Painter.paintEndGame(gc);
     }
 }
