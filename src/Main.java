@@ -28,24 +28,21 @@ public class Main extends Application {
         GameLoop gameLoop = new GameLoop(board, context);
 
         canvas.setFocusTraversable(true);
+        // TODO - buffer the last two commands
         canvas.setOnKeyPressed(e -> {
             Snake snake = board.getSnake();
             switch (e.getCode()) {
                 case UP:
-                    snake.setHorizontalVelocity(0);
-                    snake.setVerticalVelocity(-1);
+                    snake.moveUp();
                     break;
                 case DOWN:
-                    snake.setHorizontalVelocity(0);
-                    snake.setVerticalVelocity(1);
+                    snake.moveDown();
                     break;
                 case LEFT:
-                    snake.setHorizontalVelocity(-1);
-                    snake.setVerticalVelocity(0);
+                    snake.moveLeft();
                     break;
                 case RIGHT:
-                    snake.setHorizontalVelocity(1);
-                    snake.setVerticalVelocity(0);
+                    snake.moveRight();
                     break;
                 case ENTER:
 

@@ -3,33 +3,41 @@ package model;
 // TODO - comments, javadocs, loging
 public class Board {
 
-    private int WIDTH;
-    private int HEIGHT;
+    private int width;
+    private int height;
     private Snake snake;
+    private Food food;
 
     public Board(int WIDTH, int HEIGHT) {
-        this.WIDTH = WIDTH/10;
-        this.HEIGHT = HEIGHT/10;
-        this.snake = new Snake(this, new Point(WIDTH/2, HEIGHT/2));
-        snake.grow();
-        snake.grow();
-        snake.grow();
-
+        this.width = WIDTH/10;
+        this.height = HEIGHT/10;
+        this.snake = new Snake(this, new Point(width/2, height/2), 4);
+        this.food = new Food(this, 1);
     }
 
-    public void update() {
+    void update() {
+        if (snake.getHead().equals(food.getPosition())) {
+            for (int i = 0; i < food.getValue(); ++i) {
+                snake.grow();
+            }
+            food = new Food(this, 1);
+        }
         snake.update();
     }
 
-    public int getWidth() {
-        return WIDTH;
+    int getWidth() {
+        return width;
     }
 
-    public int getHeight() {
-        return HEIGHT;
+    int getHeight() {
+        return height;
     }
 
     public Snake getSnake() {
         return snake;
+    }
+
+    public Food getFood() {
+        return food;
     }
 }

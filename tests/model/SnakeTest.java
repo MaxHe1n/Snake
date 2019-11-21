@@ -12,11 +12,10 @@ public class SnakeTest {
     @Test
     public void moveRight() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 1);
 
         // when
-        s.setHorizontalVelocity(1);
-        s.setVerticalVelocity(0);
+        s.moveRight();
         s.update();
 
         // then
@@ -27,11 +26,10 @@ public class SnakeTest {
     @Test
     public void moveRightWrapBoard() {
         // given
-        Snake s = new Snake(board, new Point(9,5));
+        Snake s = new Snake(board, new Point(9,5), 1);
 
         // when
-        s.setHorizontalVelocity(1);
-        s.setVerticalVelocity(0);
+        s.moveRight();
         s.update();
 
         // then
@@ -42,11 +40,10 @@ public class SnakeTest {
     @Test
     public void moveLeft() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 1);
 
         // when
-        s.setHorizontalVelocity(-1);
-        s.setVerticalVelocity(0);
+        s.moveLeft();
         s.update();
 
         // then
@@ -57,11 +54,10 @@ public class SnakeTest {
     @Test
     public void moveLeftWrapBoard() {
         // given
-        Snake s = new Snake(board, new Point(0,5));
+        Snake s = new Snake(board, new Point(0,5), 1);
 
         // when
-        s.setHorizontalVelocity(-1);
-        s.setVerticalVelocity(0);
+        s.moveLeft();
         s.update();
 
         // then
@@ -72,11 +68,10 @@ public class SnakeTest {
     @Test
     public void moveUp() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 1);
 
         // when
-        s.setHorizontalVelocity(0);
-        s.setVerticalVelocity(-1);
+        s.moveUp();
         s.update();
 
         // then
@@ -87,11 +82,10 @@ public class SnakeTest {
     @Test
     public void moveUpWrapBoard() {
         // given
-        Snake s = new Snake(board, new Point(5,0));
+        Snake s = new Snake(board, new Point(5,0), 1);
 
         // when
-        s.setHorizontalVelocity(0);
-        s.setVerticalVelocity(-1);
+        s.moveUp();
         s.update();
 
         // then
@@ -102,11 +96,10 @@ public class SnakeTest {
     @Test
     public void moveDown() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 1);
 
         // when
-        s.setHorizontalVelocity(0);
-        s.setVerticalVelocity(1);
+        s.moveDown();
         s.update();
 
         // then
@@ -117,11 +110,10 @@ public class SnakeTest {
     @Test
     public void moveDownWrapBoard() {
         // given
-        Snake s = new Snake(board, new Point(5,9));
+        Snake s = new Snake(board, new Point(5,9), 1);
 
         // when
-        s.setHorizontalVelocity(0);
-        s.setVerticalVelocity(1);
+        s.moveDown();
         s.update();
 
         // then
@@ -133,7 +125,7 @@ public class SnakeTest {
     public void grow() {
         // given
         Point p = new Point(5,5);
-        Snake s = new Snake(board, p);
+        Snake s = new Snake(board, p, 1);
 
         // when
         s.grow();
@@ -149,7 +141,7 @@ public class SnakeTest {
         // given
         Point p1 = new Point(5,5);
         Point p2 = new Point(6,5);
-        Snake s = new Snake(board, p1);
+        Snake s = new Snake(board, p1, 1);
 
         // when
         s.grow();
@@ -164,11 +156,9 @@ public class SnakeTest {
     @Test
     public void isSafeTrue() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 3);
 
         // when
-        s.grow();
-        s.grow();
         s.update();
         s.update();
 
@@ -179,15 +169,12 @@ public class SnakeTest {
     @Test
     public void isSafeFalse() {
         // given
-        Snake s = new Snake(board, new Point(5,5));
+        Snake s = new Snake(board, new Point(5,5), 3);
 
         // when
-        s.grow();
-        s.grow();
         s.update();
         s.update();
-        s.setHorizontalVelocity(-1);
-        s.setVerticalVelocity(0);
+        s.moveLeft();
         s.update();
 
         // then

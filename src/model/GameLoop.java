@@ -17,8 +17,7 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
-        // TODO - Add game end logic
-        while (true) {
+        while (board.getSnake().isSafe()) {
 
             long lastExecutionDelay = System.currentTimeMillis() - delayTimer;
             if (lastExecutionDelay > delayInterval) {
@@ -29,5 +28,6 @@ public class GameLoop implements Runnable {
                 delayTimer = System.currentTimeMillis();
             }
         }
+        // TODO - add end game view
     }
 }

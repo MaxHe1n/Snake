@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO - comments, javadocs, loging, testing
 public class Snake {
 
     private Board board;
@@ -13,49 +12,74 @@ public class Snake {
     private int horizontalVelocity;
     private int verticalVelocity;
 
-    public Snake(Board board, Point initPosition) {
+    public Snake(Board board, Point initPosition, int initLength) {
         this.board = board;
-        this.position = new ArrayList<>();
         this.head = initPosition;
+        this.position = new ArrayList<>();
         this.position.add(initPosition);
+        this.isSafe = true;
         this.horizontalVelocity = 1;
         this.verticalVelocity = 0;
+
+        for (int i = 1; i < initLength; ++i) {
+            grow();
+        }
     }
 
-    public void update() {
+    void update() {
         Point pointRight = new Point((head.getXCord() + horizontalVelocity + board.getWidth()) % board.getWidth(),
                                      (head.getYCord() + verticalVelocity + board.getHeight()) % board.getHeight());
         move(pointRight);
         updateSafety();
     }
 
-    public void setHorizontalVelocity(int horizontalVelocity) {
-        if (horizontalVelocity <= 1 && horizontalVelocity >= -1) {
-            this.horizontalVelocity = horizontalVelocity;
-        }
+    public void moveUp() {
+        setHorizontalVelocity(0);
+        setVerticalVelocity(-1);
     }
 
-    public void setVerticalVelocity(int verticalVelocity) {
-        if (verticalVelocity <= 1 && verticalVelocity >= -1) {
-            this.verticalVelocity = verticalVelocity;
-        }
+    public void moveRight() {
+        setHorizontalVelocity(1);
+        setVerticalVelocity(0);
     }
 
-    public void grow() {
+    public void moveDown() {
+        setHorizontalVelocity(0);
+        setVerticalVelocity(1);
+    }
+
+    public void moveLeft() {
+        setHorizontalVelocity(-1);
+        setVerticalVelocity(0);
+    }
+
+    void grow() {
         Point p = position.get(0);
         position.add(0, p);
     }
 
-    public Point getHead() {
+    Point getHead() {
         return head;
     }
 
-    public List<Point> getPosition() {
+    List<Point> getPosition() {
         return position;
     }
 
     public boolean isSafe() {
         return isSafe;
+    }
+
+    private void setHorizontalVelocity(int horizontalVelocity) {
+        if (horizontalVelocity <= 1 && horizontalVelocity >= -1) {
+            this.horizontalVelocity = horizontalVelocity;
+        }
+    }
+
+    private void setVerticalVelocity(int verticalVelocity) {
+        if (verticalVelocity <= 1 && verticalVelocity >= -1) {
+            this.verticalVelocity = verticalVelocity;
+        }
     }
 
     private void move(Point point) {
