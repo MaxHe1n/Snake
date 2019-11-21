@@ -6,6 +6,8 @@ public class Board {
     private int height;
     private Snake snake;
     private Food food;
+    private Food superFood;
+    private int superFoodTimer;
     private int score;
 
     public Board(int WIDTH, int HEIGHT) {
@@ -13,20 +15,36 @@ public class Board {
         this.height = HEIGHT/10;
         this.snake = new Snake(this, new Point(width/2, height/2), 4);
         this.food = new Food(this, 1);
+        this.superFoodTimer = 0;
         this.score = 0;
     }
 
     void update() {
         if (snake.getHead().equals(food.getPosition())) {
-            food = foodEaten(food);
-        }
-        snake.update();
-    }
+            score += food.getValue();
+            snake.grow();
+            food = new Food(this, 1);
 
-    private Food foodEaten(Food f) {
-        score += f.getValue();
-        snake.grow();
-        return new Food(this, f.getValue());
+            if (superFood == null) {
+                if (((int) (Math.random()*10)) == 5) {
+                    superFood = new Food(this, 3);
+                    superFoodTimer = 100;
+                }
+            }
+        }
+
+        if (superFood != null && snake.getHead().equals(superFood.getPosition())) {
+            score += superFood.getValue();
+            snake.grow();
+            superFood = null;
+            superFoodTimer = 0;
+        } else if (superFood != null && superFoodTimer > 0) {
+            superFoodTimer--;
+        } else if (superFood != null && superFoodTimer == 0) {
+            superFood = null;
+        }
+
+        snake.update();
     }
 
     int getWidth() {
@@ -43,6 +61,10 @@ public class Board {
 
     Food getFood() {
         return food;
+    }
+
+    Food getSuperFood() {
+        return superFood;
     }
 
     int getScore() {

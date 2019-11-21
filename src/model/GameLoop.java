@@ -27,7 +27,6 @@ public class GameLoop implements Runnable {
 
                 delayTimer = System.currentTimeMillis();
                 delayInterval = calculateDelayInterval();
-                System.out.println(delayInterval);
             }
         }
         Painter.paintEndGame(gc);

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 class Painter {
 
-
+    // TODO - optimise only snake / food updates
     static void paint(Board board, GraphicsContext gc) {
         gc.setFill(new Color(0.1, 0.1, 0.1, 1));
         gc.fillRect(0, 0, 500, 500);
@@ -14,6 +14,12 @@ class Painter {
         Food food = board.getFood();
         gc.setFill(Color.SPRINGGREEN);
         paintPoint(food.getPosition(), gc);
+
+        Food superFood = board.getSuperFood();
+        if (superFood != null ) {
+            gc.setFill(Color.RED);
+            paintPoint(superFood.getPosition(), gc);
+        }
 
         // Now the snake
         Snake snake = board.getSnake();
