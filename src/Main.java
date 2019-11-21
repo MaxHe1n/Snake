@@ -13,6 +13,9 @@ public class Main extends Application {
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
 
+    private Board board;
+    private GameLoop gameLoop;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,8 +27,8 @@ public class Main extends Application {
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         GraphicsContext context = canvas.getGraphicsContext2D();
 
-        Board board = new Board(WIDTH, HEIGHT);
-        GameLoop gameLoop = new GameLoop(board, context);
+        board = new Board(WIDTH, HEIGHT);
+        gameLoop = new GameLoop(board, context);
 
         canvas.setFocusTraversable(true);
         // TODO - buffer the last two commands
@@ -45,7 +48,9 @@ public class Main extends Application {
                     snake.moveRight();
                     break;
                 case ENTER:
-
+                    board = new Board(WIDTH, HEIGHT);
+                    gameLoop = new GameLoop(board, context);
+                    (new Thread(gameLoop)).start();
             }
         });
 
