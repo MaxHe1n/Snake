@@ -1,29 +1,25 @@
 package model;
 
-// TODO - comments, javadocs, loging
 public class Point {
 
     private int xCord;
     private int yCord;
 
-    public Point(int xCord, int yCord) {
+    Point(int xCord, int yCord) {
         this.xCord = xCord;
         this.yCord = yCord;
     }
 
-    public int getXCord() {
+    int getXCord() {
         return xCord;
     }
 
-    public int getYCord() {
+    int getYCord() {
         return yCord;
     }
 
-    public boolean equals(Point point) {
-        if (this.xCord == point.xCord && this.yCord == point.yCord) {
-            return  true;
-        }
-        return false;
+    boolean equals(Point point) {
+        return this.xCord == point.xCord && this.yCord == point.yCord;
     }
 
     @Override

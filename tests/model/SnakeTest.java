@@ -43,12 +43,14 @@ public class SnakeTest {
         Snake s = new Snake(board, new Point(5,5), 1);
 
         // when
+        s.moveUp();
+        s.update();
         s.moveLeft();
         s.update();
 
         // then
         Assert.assertEquals(4, s.getHead().getXCord());
-        Assert.assertEquals(5, s.getHead().getYCord());
+        Assert.assertEquals(4, s.getHead().getYCord());
     }
 
     @Test
@@ -57,12 +59,14 @@ public class SnakeTest {
         Snake s = new Snake(board, new Point(0,5), 1);
 
         // when
+        s.moveUp();
+        s.update();
         s.moveLeft();
         s.update();
 
         // then
         Assert.assertEquals(9, s.getHead().getXCord());
-        Assert.assertEquals(5, s.getHead().getYCord());
+        Assert.assertEquals(4, s.getHead().getYCord());
     }
 
     @Test
@@ -169,12 +173,18 @@ public class SnakeTest {
     @Test
     public void isSafeFalse() {
         // given
-        Snake s = new Snake(board, new Point(5,5), 3);
+        Snake s = new Snake(board, new Point(5,5), 5);
 
         // when
         s.update();
         s.update();
+        s.update();
+        s.update();
+        s.moveUp();
+        s.update();
         s.moveLeft();
+        s.update();
+        s.moveDown();
         s.update();
 
         // then

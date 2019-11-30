@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 
 class Painter {
 
-    // TODO - optimise only snake / food updates
     static void paint(Board board, GraphicsContext gc) {
         gc.setFill(new Color(0.1, 0.1, 0.1, 1));
         gc.fillRect(0, 0, 500, 500);
@@ -32,7 +31,6 @@ class Painter {
     }
 
     static void paintEndGame(GraphicsContext gc) {
-        // The score
         gc.setFill(Color.AQUAMARINE);
         gc.fillText("Game Over", 220, 250);
     }

@@ -26,7 +26,7 @@ public class Board {
             food = new Food(this, 1);
 
             if (superFood == null) {
-                if (((int) (Math.random()*10)) == 5) {
+                if (((int) (Math.random()*5)) == 2) {
                     superFood = new Food(this, 3);
                     superFoodTimer = 100;
                 }

@@ -11,6 +11,8 @@ public class Snake {
     private boolean isSafe;
     private int horizontalVelocity;
     private int verticalVelocity;
+    private int currentHorizontalVelocity;
+    private int currentVerticalVelocity;
 
     public Snake(Board board, Point initPosition, int initLength) {
         this.board = board;
@@ -20,6 +22,8 @@ public class Snake {
         this.isSafe = true;
         this.horizontalVelocity = 1;
         this.verticalVelocity = 0;
+        this.currentHorizontalVelocity = 1;
+        this.currentVerticalVelocity = 0;
 
         for (int i = 1; i < initLength; ++i) {
             grow();
@@ -27,30 +31,40 @@ public class Snake {
     }
 
     void update() {
-        Point pointRight = new Point((head.getXCord() + horizontalVelocity + board.getWidth()) % board.getWidth(),
+        Point point = new Point((head.getXCord() + horizontalVelocity + board.getWidth()) % board.getWidth(),
                                      (head.getYCord() + verticalVelocity + board.getHeight()) % board.getHeight());
-        move(pointRight);
+        move(point);
+        currentHorizontalVelocity = horizontalVelocity;
+        currentVerticalVelocity = verticalVelocity;
         updateSafety();
     }
 
     public void moveUp() {
-        setHorizontalVelocity(0);
-        setVerticalVelocity(-1);
+        if (!(currentHorizontalVelocity == 0 && currentVerticalVelocity == 1)) {
+            setHorizontalVelocity(0);
+            setVerticalVelocity(-1);
+        }
     }
 
     public void moveRight() {
-        setHorizontalVelocity(1);
-        setVerticalVelocity(0);
+        if (!(currentHorizontalVelocity == -1 && currentVerticalVelocity == 0)) {
+            setHorizontalVelocity(1);
+            setVerticalVelocity(0);
+        }
     }
 
     public void moveDown() {
-        setHorizontalVelocity(0);
-        setVerticalVelocity(1);
+        if (!(currentHorizontalVelocity == 0 && currentVerticalVelocity == -1)) {
+            setHorizontalVelocity(0);
+            setVerticalVelocity(1);
+        }
     }
 
     public void moveLeft() {
-        setHorizontalVelocity(-1);
-        setVerticalVelocity(0);
+        if (!(currentHorizontalVelocity == 1 && currentVerticalVelocity == 0)) {
+            setHorizontalVelocity(-1);
+            setVerticalVelocity(0);
+        }
     }
 
     void grow() {

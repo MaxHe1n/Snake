@@ -31,7 +31,6 @@ public class Main extends Application {
         gameLoop = new GameLoop(board, context);
 
         canvas.setFocusTraversable(true);
-        // TODO - buffer the last two commands
         canvas.setOnKeyPressed(e -> {
             Snake snake = board.getSnake();
             switch (e.getCode()) {
@@ -48,9 +47,11 @@ public class Main extends Application {
                     snake.moveRight();
                     break;
                 case ENTER:
-                    board = new Board(WIDTH, HEIGHT);
-                    gameLoop = new GameLoop(board, context);
-                    (new Thread(gameLoop)).start();
+                    if (!(board.getSnake().isSafe())) {
+                        board = new Board(WIDTH, HEIGHT);
+                        gameLoop = new GameLoop(board, context);
+                        (new Thread(gameLoop)).start();
+                    }
             }
         });
 
