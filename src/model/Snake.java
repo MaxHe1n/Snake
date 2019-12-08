@@ -84,6 +84,16 @@ public class Snake {
         return isSafe;
     }
 
+    // TODO unit test
+    Boolean contains(Point option) {
+        for (Point point : position) {
+            if (option.equals(point)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void setHorizontalVelocity(int horizontalVelocity) {
         if (horizontalVelocity <= 1 && horizontalVelocity >= -1) {
             this.horizontalVelocity = horizontalVelocity;

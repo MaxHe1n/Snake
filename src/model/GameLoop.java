@@ -1,15 +1,18 @@
 package model;
 
+import ai.Simulator;
 import javafx.scene.canvas.GraphicsContext;
 
 public class GameLoop implements Runnable {
     private Board board;
+    private Simulator sim;
     private GraphicsContext gc;
     private long delayInterval;
     private long delayTimer;
 
-    public GameLoop(Board board, GraphicsContext gc) {
+    public GameLoop(Board board, Simulator sim,  GraphicsContext gc) {
         this.board = board;
+        this.sim = sim;
         this.gc = gc;
         this.delayInterval = 100;
         this.delayTimer = System.currentTimeMillis();
@@ -23,6 +26,9 @@ public class GameLoop implements Runnable {
             if (lastExecutionDelay > delayInterval) {
 
                 Painter.paint(board, gc);
+                if (sim != null) {
+                    sim.setMove();
+                }
                 board.update();
 
                 delayTimer = System.currentTimeMillis();

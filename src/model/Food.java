@@ -2,14 +2,12 @@ package model;
 
 class Food {
 
-    private Board board;
     private int value;
     private Point position;
 
-    Food(Board board, int value) {
-        this.board = board;
+    Food(Point point, int value) {
+        this.position = point;
         this.value = value;
-        this.position = getRandomPoint();
     }
 
     int getValue() {
@@ -20,9 +18,4 @@ class Food {
         return position;
     }
 
-    private Point getRandomPoint() {
-        double randomX = Math.random()*board.getWidth();
-        double randomy = Math.random()*board.getHeight();
-        return new Point((int) randomX, (int) randomy);
-    }
 }

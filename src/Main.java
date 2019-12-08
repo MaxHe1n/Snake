@@ -1,3 +1,4 @@
+import ai.Simulator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -6,15 +7,18 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Board;
 import model.GameLoop;
-import model.Snake;
 
 public class Main extends Application {
 
+    private final boolean simMode = true;
+    private final String title = "Snake";
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
 
-    private Board board;
+    private Canvas canvas;
+    private GraphicsContext context;
     private GameLoop gameLoop;
+    Board board;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,47 +28,38 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         StackPane root = new StackPane();
-        Canvas canvas = new Canvas(WIDTH, HEIGHT);
-        GraphicsContext context = canvas.getGraphicsContext2D();
 
-        board = new Board(WIDTH, HEIGHT);
-        gameLoop = new GameLoop(board, context);
-
-        canvas.setFocusTraversable(true);
-        canvas.setOnKeyPressed(e -> {
-            Snake snake = board.getSnake();
-            switch (e.getCode()) {
-                case UP:
-                    snake.moveUp();
-                    break;
-                case DOWN:
-                    snake.moveDown();
-                    break;
-                case LEFT:
-                    snake.moveLeft();
-                    break;
-                case RIGHT:
-                    snake.moveRight();
-                    break;
-                case ENTER:
-                    if (!(board.getSnake().isSafe())) {
-                        board = new Board(WIDTH, HEIGHT);
-                        gameLoop = new GameLoop(board, context);
-                        (new Thread(gameLoop)).start();
-                    }
-            }
-        });
+        canvas = new Canvas(WIDTH, HEIGHT);
+        context = canvas.getGraphicsContext2D();
+        setUpGameLogic();
 
         root.getChildren().add(canvas);
 
         Scene scene = new Scene(root);
 
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Snake");
+        primaryStage.setTitle(title);
         primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.setScene(scene);
         primaryStage.show();
 
         (new Thread(gameLoop)).start();
+    }
+
+    void reset() {
+        setUpGameLogic();
+        (new Thread(gameLoop)).start();
+    }
+
+    private void setUpGameLogic() {
+        board = new Board(WIDTH, HEIGHT);
+        if (simMode) {
+            Simulator sim = new Simulator(board);
+            gameLoop = new GameLoop(board, sim, context);
+        } else {
+            canvas.setFocusTraversable(true);
+            canvas.setOnKeyPressed(new KeyHandler(this));
+            gameLoop = new GameLoop(board, null, context);
+        }
     }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
 
     private int width;
@@ -14,7 +17,7 @@ public class Board {
         this.width = WIDTH/10;
         this.height = HEIGHT/10;
         this.snake = new Snake(this, new Point(width/2, height/2), 4);
-        this.food = new Food(this, 1);
+        this.food = new Food(getEmptyRandomPoint(), 1);
         this.superFoodTimer = 0;
         this.score = 0;
     }
@@ -23,11 +26,11 @@ public class Board {
         if (snake.getHead().equals(food.getPosition())) {
             score += food.getValue();
             snake.grow();
-            food = new Food(this, 1);
+            food = new Food(getEmptyRandomPoint(), 1);
 
             if (superFood == null) {
-                if (((int) (Math.random()*5)) == 2) {
-                    superFood = new Food(this, 3);
+                if (((int) (Math.random()*10)) == 5) {
+                    superFood = new Food(getEmptyRandomPoint(), 3);
                     superFoodTimer = 100;
                 }
             }
@@ -69,5 +72,22 @@ public class Board {
 
     int getScore() {
         return score;
+    }
+
+    private int getRandomDoubleBetweenRange(double min, double max){
+        return (int) ((Math.random()*((max-min)+1))+min);
+    }
+
+    private Point getEmptyRandomPoint() {
+        List<Point> choice = new ArrayList<>();
+        for (int x = 0; x < width; ++x) {
+            for (int y = 0; y < height; ++y) {
+                Point option = new Point(x,y);
+                if (!snake.contains(option)) {
+                    choice.add(new Point(x,y));
+                }
+            }
+        }
+        return choice.get(getRandomDoubleBetweenRange(0, choice.size()));
     }
 }
