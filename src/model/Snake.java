@@ -72,7 +72,7 @@ public class Snake {
         position.add(0, p);
     }
 
-    Point getHead() {
+    public Point getHead() {
         return head;
     }
 

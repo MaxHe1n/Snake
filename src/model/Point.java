@@ -10,11 +10,11 @@ public class Point {
         this.yCord = yCord;
     }
 
-    int getXCord() {
+    public int getXCord() {
         return xCord;
     }
 
-    int getYCord() {
+    public int getYCord() {
         return yCord;
     }
 

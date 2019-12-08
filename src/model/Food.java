@@ -1,6 +1,6 @@
 package model;
 
-class Food {
+public class Food {
 
     private int value;
     private Point position;
@@ -14,7 +14,7 @@ class Food {
         return value;
     }
 
-    Point getPosition() {
+    public Point getPosition() {
         return position;
     }
 

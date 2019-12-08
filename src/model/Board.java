@@ -62,7 +62,7 @@ public class Board {
         return snake;
     }
 
-    Food getFood() {
+    public Food getFood() {
         return food;
     }
 
