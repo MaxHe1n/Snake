@@ -31,8 +31,8 @@ public class Snake {
     }
 
     void update() {
-        Point point = new Point((head.getXCord() + horizontalVelocity + board.getWidth()) % board.getWidth(),
-                                     (head.getYCord() + verticalVelocity + board.getHeight()) % board.getHeight());
+        Point point = board.wrapBoard(head.getXCord() + horizontalVelocity,
+                head.getYCord() + verticalVelocity);
         move(point);
         currentHorizontalVelocity = horizontalVelocity;
         currentVerticalVelocity = verticalVelocity;

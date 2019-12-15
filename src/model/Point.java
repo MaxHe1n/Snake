@@ -4,6 +4,15 @@ public class Point {
 
     private int xCord;
     private int yCord;
+    // These 2 are used as apart of the AI path finding
+    private boolean discovered;
+    private Point parent;
+
+    public Point(int xCord, int yCord, boolean discovered) {
+        this.xCord = xCord;
+        this.yCord = yCord;
+        this.discovered = discovered;
+    }
 
     Point(int xCord, int yCord) {
         this.xCord = xCord;
@@ -18,8 +27,25 @@ public class Point {
         return yCord;
     }
 
-    boolean equals(Point point) {
-        return this.xCord == point.xCord && this.yCord == point.yCord;
+    public boolean isDiscovered() {
+        return discovered;
+    }
+
+    public void setDiscovered(boolean discovered) {
+        this.discovered = discovered;
+    }
+
+    public Point getParent() {
+        return parent;
+    }
+
+    public void setParent(Point parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public boolean equals(Object point) {
+        return this.xCord == ((Point)point).xCord && this.yCord == ((Point)point).yCord;
     }
 
     boolean isLeftOf(Board board, Point oriant) {

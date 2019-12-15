@@ -27,7 +27,7 @@ public class GameLoop implements Runnable {
 
                 Painter.paint(board, gc);
                 if (sim != null) {
-                    sim.setMove();
+                    sim.getMoveSearch();
                 }
                 board.update();
 

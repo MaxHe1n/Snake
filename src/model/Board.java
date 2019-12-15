@@ -50,11 +50,11 @@ public class Board {
         snake.update();
     }
 
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    int getHeight() {
+    public int getHeight() {
         return height;
     }
 
@@ -72,6 +72,10 @@ public class Board {
 
     int getScore() {
         return score;
+    }
+
+    Point wrapBoard(int positionX, int positionY) {
+        return new Point((positionX + width) % width, (positionY + height) % height);
     }
 
     private int getRandomDoubleBetweenRange(double min, double max){

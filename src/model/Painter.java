@@ -5,11 +5,13 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-// TODO - tidy up
+// TODO - tidy up + optomise
 class Painter {
 
+    static Color black = new Color(0.1, 0.1, 0.1, 1);
+
     static void paint(Board board, GraphicsContext gc) {
-        gc.setFill(new Color(0.1, 0.1, 0.1, 1));
+        gc.setFill(black);
         gc.fillRect(0, 0, 500, 500);
 
         // Now the food
