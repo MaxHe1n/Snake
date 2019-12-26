@@ -13,7 +13,7 @@ import java.util.List;
 
 class BFS {
 
-    Point search(Graph graph, Point root, Point goal) {
+    List<Point> search(Graph graph, Point root, Point goal) {
 
         Deque<Point> q = new ArrayDeque<>();
         Point r = (Point) graph.getVertex(root);
@@ -22,7 +22,7 @@ class BFS {
 
         while(q.size() != 0) {
             Point v = q.removeFirst();
-            if (v.equals(goal)) return v;
+            if (v.equals(goal)) return backTrace(v);
             List<Point> connectedVertices = (List<Point>) graph.map.get(v);
             for(Point w : connectedVertices) {
                 if(!w.isDiscovered()) {

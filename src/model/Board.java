@@ -23,6 +23,9 @@ public class Board {
     }
 
     void update() {
+
+        snake.update();
+
         if (snake.getHead().equals(food.getPosition())) {
             score += food.getValue();
             snake.grow();
@@ -46,8 +49,6 @@ public class Board {
         } else if (superFood != null && superFoodTimer == 0) {
             superFood = null;
         }
-
-        snake.update();
     }
 
     public int getWidth() {

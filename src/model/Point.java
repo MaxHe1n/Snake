@@ -48,25 +48,25 @@ public class Point {
         return this.xCord == ((Point)point).xCord && this.yCord == ((Point)point).yCord;
     }
 
-    boolean isLeftOf(Board board, Point oriant) {
+    public boolean isLeftOf(Board board, Point oriant) {
         if (oriant == null) return false;
         Point point = board.wrapBoard(oriant.getXCord() - 1, oriant.getYCord());
         return point.equals(this);
     }
 
-    boolean isRightOf(Board board, Point oriant) {
+    public boolean isRightOf(Board board, Point oriant) {
         if (oriant == null) return false;
         Point point = board.wrapBoard(oriant.getXCord() + 1, oriant.getYCord());
         return point.equals(this);
     }
 
-    boolean isAboveOf(Board board, Point oriant) {
+    public boolean isAboveOf(Board board, Point oriant) {
         if (oriant == null) return false;
         Point pointLeft = board.wrapBoard(oriant.getXCord(), oriant.getYCord() - 1);
         return pointLeft.equals(this);
     }
 
-    boolean isBelowOf(Board board, Point oriant) {
+    public boolean isBelowOf(Board board, Point oriant) {
         if (oriant == null) return false;
         Point pointRight = board.wrapBoard(oriant.getXCord(), oriant.getYCord() + 1);
         return pointRight.equals(this);

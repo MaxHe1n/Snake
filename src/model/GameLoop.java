@@ -21,13 +21,14 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
+        Painter.paint(board, view.getGraphicsContext2D());
         while (board.getSnake().isSafe()) {
 
             long lastExecutionDelay = System.currentTimeMillis() - delayTimer;
             if (lastExecutionDelay > delayInterval) {
 
                 if (sim != null) {
-                    sim.getMoveGreedy();
+                    sim.getMoveSearch();
                 }
                 board.update();
                 Painter.paint(board, view.getGraphicsContext2D());
