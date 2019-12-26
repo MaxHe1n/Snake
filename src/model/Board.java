@@ -66,11 +66,11 @@ public class Board {
         return food;
     }
 
-    Food getSuperFood() {
+    public Food getSuperFood() {
         return superFood;
     }
 
-    int getScore() {
+    public int getScore() {
         return score;
     }
 

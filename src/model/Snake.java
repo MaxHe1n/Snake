@@ -76,7 +76,7 @@ public class Snake {
         return head;
     }
 
-    List<Point> getPosition() {
+    public List<Point> getPosition() {
         return position;
     }
 

@@ -1,8 +1,8 @@
+import Views.Painter;
+import Views.View;
 import ai.Simulator;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Board;
@@ -15,8 +15,7 @@ public class Main extends Application {
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
 
-    private Canvas canvas;
-    private GraphicsContext context;
+    private View view;
     private GameLoop gameLoop;
     Board board;
 
@@ -29,11 +28,10 @@ public class Main extends Application {
 
         StackPane root = new StackPane();
 
-        canvas = new Canvas(WIDTH, HEIGHT);
-        context = canvas.getGraphicsContext2D();
+        view = new View(WIDTH, HEIGHT);
         setUpGameLogic();
 
-        root.getChildren().add(canvas);
+        root.getChildren().add(view);
 
         Scene scene = new Scene(root);
 
@@ -53,13 +51,13 @@ public class Main extends Application {
 
     private void setUpGameLogic() {
         board = new Board(WIDTH, HEIGHT);
+        Simulator sim = null;
         if (simMode) {
-            Simulator sim = new Simulator(board);
-            gameLoop = new GameLoop(board, sim, context);
+            sim = new Simulator(board);
         } else {
-            canvas.setFocusTraversable(true);
-            canvas.setOnKeyPressed(new KeyHandler(this));
-            gameLoop = new GameLoop(board, null, context);
+            view.setFocusTraversable(true);
+            view.setOnKeyPressed(new KeyHandler(this));
         }
+        gameLoop = new GameLoop(board, sim, view);
     }
 }

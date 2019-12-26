@@ -1,20 +1,21 @@
 package model;
 
+import Views.Painter;
+import Views.View;
 import ai.Simulator;
-import javafx.scene.canvas.GraphicsContext;
 
 public class GameLoop implements Runnable {
+    private static long delayInterval = 100;
+    private View view;
     private Board board;
     private Simulator sim;
-    private GraphicsContext gc;
-    private long delayInterval;
     private long delayTimer;
 
-    public GameLoop(Board board, Simulator sim,  GraphicsContext gc) {
+    // TODO - Refactor to be a controler
+    public GameLoop(Board board, Simulator sim, View view) {
+        this.view = view;
         this.board = board;
         this.sim = sim;
-        this.gc = gc;
-        this.delayInterval = 100;
         this.delayTimer = System.currentTimeMillis();
     }
 
@@ -25,17 +26,17 @@ public class GameLoop implements Runnable {
             long lastExecutionDelay = System.currentTimeMillis() - delayTimer;
             if (lastExecutionDelay > delayInterval) {
 
-                Painter.paint(board, gc);
                 if (sim != null) {
-                    sim.getMoveSearch();
+                    sim.getMoveGreedy();
                 }
                 board.update();
+                Painter.paint(board, view.getGraphicsContext2D());
 
                 delayTimer = System.currentTimeMillis();
                 delayInterval = calculateDelayInterval();
             }
         }
-        Painter.paintEndGame(gc);
+        Painter.paintEndGame(view.getGraphicsContext2D());
     }
 
     private int calculateDelayInterval() {

@@ -50,33 +50,25 @@ public class Point {
 
     boolean isLeftOf(Board board, Point oriant) {
         if (oriant == null) return false;
-        Point point = new Point((oriant.getXCord() - 1 + board.getWidth()) % board.getWidth(),
-                (oriant.getYCord() + board.getHeight()) % board.getHeight());
-
+        Point point = board.wrapBoard(oriant.getXCord() - 1, oriant.getYCord());
         return point.equals(this);
     }
 
-    boolean isrRightOf(Board board, Point oriant) {
+    boolean isRightOf(Board board, Point oriant) {
         if (oriant == null) return false;
-        Point point = new Point((oriant.getXCord() + 1 + board.getWidth()) % board.getWidth(),
-                (oriant.getYCord() + board.getHeight()) % board.getHeight());
-
+        Point point = board.wrapBoard(oriant.getXCord() + 1, oriant.getYCord());
         return point.equals(this);
     }
 
     boolean isAboveOf(Board board, Point oriant) {
         if (oriant == null) return false;
-        Point pointLeft = new Point((oriant.getXCord() + board.getWidth()) % board.getWidth(),
-                (oriant.getYCord() - 1 + board.getHeight()) % board.getHeight());
-
+        Point pointLeft = board.wrapBoard(oriant.getXCord(), oriant.getYCord() - 1);
         return pointLeft.equals(this);
     }
 
     boolean isBelowOf(Board board, Point oriant) {
         if (oriant == null) return false;
-        Point pointRight = new Point((oriant.getXCord() + board.getWidth()) % board.getWidth(),
-                (oriant.getYCord() + 1 + board.getHeight()) % board.getHeight());
-
+        Point pointRight = board.wrapBoard(oriant.getXCord(), oriant.getYCord() + 1);
         return pointRight.equals(this);
     }
 
