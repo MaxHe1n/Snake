@@ -9,7 +9,7 @@ import controler.GameLoop;
 
 public class Main extends Application {
 
-    private final boolean simMode = true;
+    private final boolean simMode = false;
     private final String title = "Snake";
     private final int WIDTH = 500;
     private final int HEIGHT = 500;

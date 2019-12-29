@@ -4,7 +4,7 @@ public class Point {
 
     private int xCord;
     private int yCord;
-    // These 2 are used as apart of the AI path finding
+    // These 2 fields are used as apart of the path finding (AI)
     private boolean discovered;
     private Point parent;
 

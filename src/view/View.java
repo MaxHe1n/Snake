@@ -42,8 +42,10 @@ public class View extends Canvas {
     }
 
     public void paintEndGame(GraphicsContext gc) {
-        gc.setFill(Color.AQUAMARINE);
-        gc.fillText("Game Over", 220, 250);
+        Platform.runLater(() -> {
+            gc.setFill(Color.AQUAMARINE);
+            gc.fillText("Game Over", 220, 250);
+        });
     }
 
     private void paintPoint(Point point, GraphicsContext gc, int offset) {
