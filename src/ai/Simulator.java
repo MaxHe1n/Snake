@@ -36,13 +36,9 @@ public class Simulator {
 
     public void getMoveSearch() {
 
-        if (index == -2) {
-            return;
-        }
-
         if (index == -1) {
-            BFS bfs = new BFS();
-            path = bfs.search(graph, board.getSnake().getHead(), board.getFood().getPosition());
+            // UPDATE MODEL HERE - different models will produce different path solutions
+            path = new DFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition());
             index = path.size()-2;
             resetGraph();
         }

@@ -23,8 +23,7 @@ class BFS {
         while(q.size() != 0) {
             Point v = q.removeFirst();
             if (v.equals(goal)) return backTrace(v);
-            List<Point> connectedVertices = (List<Point>) graph.map.get(v);
-            for(Point w : connectedVertices) {
+            for(Point w : (List<Point>) graph.map.get(v)) {
                 if(!w.isDiscovered()) {
                     w.setParent(v);
                     w.setDiscovered(true);
