@@ -1,8 +1,8 @@
-package model;
+package controler;
 
-import Views.Painter;
-import Views.View;
+import view.View;
 import ai.Simulator;
+import model.Board;
 
 public class GameLoop implements Runnable {
     private static long delayInterval = 100;
@@ -11,7 +11,6 @@ public class GameLoop implements Runnable {
     private Simulator sim;
     private long delayTimer;
 
-    // TODO - Refactor to be a controler
     public GameLoop(Board board, Simulator sim, View view) {
         this.view = view;
         this.board = board;
@@ -21,7 +20,7 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
-        Painter.paint(board, view.getGraphicsContext2D());
+        view.paint(board, view.getGraphicsContext2D());
         while (board.getSnake().isSafe()) {
 
             long lastExecutionDelay = System.currentTimeMillis() - delayTimer;
@@ -31,13 +30,13 @@ public class GameLoop implements Runnable {
                     sim.getMoveSearch();
                 }
                 board.update();
-                Painter.paint(board, view.getGraphicsContext2D());
+                view.paint(board, view.getGraphicsContext2D());
 
                 delayTimer = System.currentTimeMillis();
                 delayInterval = calculateDelayInterval();
             }
         }
-        Painter.paintEndGame(view.getGraphicsContext2D());
+        view.paintEndGame(view.getGraphicsContext2D());
     }
 
     private int calculateDelayInterval() {

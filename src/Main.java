@@ -1,12 +1,11 @@
-import Views.Painter;
-import Views.View;
+import view.View;
 import ai.Simulator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Board;
-import model.GameLoop;
+import controler.GameLoop;
 
 public class Main extends Application {
 

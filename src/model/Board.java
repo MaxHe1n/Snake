@@ -22,7 +22,7 @@ public class Board {
         this.score = 0;
     }
 
-    void update() {
+    public void update() {
 
         snake.update();
 
