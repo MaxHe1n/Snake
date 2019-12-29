@@ -14,20 +14,18 @@ import java.util.List;
 class DFS {
 
     List<Point> search(Graph graph, Point root, Point goal) {
-        Point r = (Point) graph.getVertex(root);
-        return DFSIterative(graph, r, goal);
-    }
 
-    List<Point> DFSIterative(Graph g, Point root, Point goal) {
+        Point r = (Point) graph.getVertex(root);
         Deque<Point> stack = new ArrayDeque<>();
-        stack.push(root);
+        stack.push(r);
+
         while (stack.size() != 0) {
             Point v = stack.pop();
             if (!v.isDiscovered()) {
                 v.setDiscovered(true);
                 if (v.equals(goal)) return backTrace(v);
-                for (Point w : (List<Point>) g.map.get(v)) {
-                    if (w.getParent() == null && !w.equals(root)) w.setParent(v);
+                for (Point w : (List<Point>) graph.map.get(v)) {
+                    if (w.getParent() == null && !w.equals(r)) w.setParent(v);
                     stack.push(w);
                 }
             }
@@ -35,22 +33,7 @@ class DFS {
         return null;
     }
 
-    List<Point> DFSRecursive(Graph g, Point parent, Point goal) {
-
-        if (parent.equals(goal)) return backTrace(goal);
-
-        for (Point p : (List<Point>) g.map.get(parent)) {
-            if (!p.isDiscovered()) {
-                p.setDiscovered(true);
-                p.setParent(parent);
-                DFSRecursive(g, p, goal);
-            }
-        }
-
-        return null;
-    }
-
-    List<Point> backTrace(Point end) {
+    private List<Point> backTrace(Point end) {
         List<Point> trace = new ArrayList<>();
         trace.add(end);
         Point point = end;

@@ -35,7 +35,7 @@ class BFS {
         return null;
     }
 
-    List<Point> backTrace(Point end) {
+    private List<Point> backTrace(Point end) {
         List<Point> trace = new ArrayList<>();
         trace.add(end);
         Point point = end;

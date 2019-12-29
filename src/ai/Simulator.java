@@ -38,7 +38,7 @@ public class Simulator {
 
         if (index == -1) {
             // UPDATE MODEL HERE - different models will produce different path solutions
-            path = new DFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition());
+            path = new BFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition());
             index = path.size()-2;
             resetGraph();
         }
@@ -66,10 +66,16 @@ public class Simulator {
         }
         for (int x = 0; x < board.getWidth(); ++x) {
             for (int y = 0; y < board.getWidth(); ++y) {
-                g.addEdge(p[x][y], p[(x + board.getWidth()) % board.getWidth()][(y - 1 + board.getHeight()) % board.getHeight()], false);
-                g.addEdge(p[x][y], p[(x + 1 + board.getWidth()) % board.getWidth()][(y + board.getHeight()) % board.getHeight()], false);
-                g.addEdge(p[x][y], p[(x + board.getWidth()) % board.getWidth()][(y + 1 + board.getHeight()) % board.getHeight()], false);
-                g.addEdge(p[x][y], p[(x - 1 + board.getWidth()) % board.getWidth()][(y + board.getHeight()) % board.getHeight()], false);
+//                g.addEdge(p[x][y], p[(x + board.getWidth()) % board.getWidth()][(y - 1 + board.getHeight()) % board.getHeight()], false);
+//                g.addEdge(p[x][y], p[(x + 1 + board.getWidth()) % board.getWidth()][(y + board.getHeight()) % board.getHeight()], false);
+//                g.addEdge(p[x][y], p[(x + board.getWidth()) % board.getWidth()][(y + 1 + board.getHeight()) % board.getHeight()], false);
+//                g.addEdge(p[x][y], p[(x - 1 + board.getWidth()) % board.getWidth()][(y + board.getHeight()) % board.getHeight()], false);
+
+                if (y-1 >= 0) g.addEdge(p[x][y], p[x][y - 1], false);
+                if (x+1 < board.getWidth()) g.addEdge(p[x][y], p[x + 1][y], false);
+                if (y+1 < board.getHeight()) g.addEdge(p[x][y], p[x][y + 1], false);
+                if (x-1 >= 0) g.addEdge(p[x][y], p[x - 1][y], false);
+
             }
         }
         return g;
