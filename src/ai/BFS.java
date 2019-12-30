@@ -13,10 +13,17 @@ import java.util.List;
 
 class BFS {
 
-    List<Point> search(Graph graph, Point root, Point goal) {
+    List<Point> search(Graph graph, Point root, Point goal, List<Point> exclusion) {
+
+        // Basic snake avoidance
+        for (Point e : exclusion) {
+            ((Point) graph.getVertex(e)).setDiscovered(true);
+        }
+
+        // Basic BFS - Backtracking variant
+        Point r = (Point) graph.getVertex(root);
 
         Deque<Point> q = new ArrayDeque<>();
-        Point r = (Point) graph.getVertex(root);
         r.setDiscovered(true);
         q.add(r);
 

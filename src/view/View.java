@@ -38,6 +38,8 @@ public class View extends Canvas {
                 paintPoint(p, gc, 0);
             }
 
+            gc.fillText(String.format("Score: %s", board.getScore() * 10), 10, 490);
+
         });
     }
 

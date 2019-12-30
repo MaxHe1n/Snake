@@ -36,21 +36,27 @@ public class Simulator {
 
     public void getMoveSearch() {
 
-        if (index == -1) {
+        if (index < 0) {
             // UPDATE MODEL HERE - different models will produce different path solutions
-            path = new BFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition());
-            index = path.size()-2;
+            path = new DFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition(), board.getSnake().getPosition().subList(0, board.getSnake().getPosition().size()-1));
+            if (path == null) {
+                index = -1;
+            } else {
+                index = path.size()-2;
+            }
             resetGraph();
         }
 
-        if(path.get(index).isRightOf(board, board.getSnake().getHead())) {
-            board.getSnake().moveRight();
-        } else if (path.get(index).isLeftOf(board, board.getSnake().getHead())) {
-            board.getSnake().moveLeft();
-        } else if(path.get(index).isBelowOf(board, board.getSnake().getHead())) {
-            board.getSnake().moveDown();
-        } else {
-            board.getSnake().moveUp();
+        if (path != null) {
+            if (path.get(index).isRightOf(board, board.getSnake().getHead())) {
+                board.getSnake().moveRight();
+            } else if (path.get(index).isLeftOf(board, board.getSnake().getHead())) {
+                board.getSnake().moveLeft();
+            } else if (path.get(index).isBelowOf(board, board.getSnake().getHead())) {
+                board.getSnake().moveDown();
+            } else {
+                board.getSnake().moveUp();
+            }
         }
 
         index--;
