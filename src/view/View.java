@@ -15,31 +15,62 @@ public class View extends Canvas {
         super(width, height);
     }
 
-    public void paint(Board board, GraphicsContext gc) {
+    public void initPaint(Board board) {
         Platform.runLater(() -> {
+            GraphicsContext gc = this.getGraphicsContext2D();
 
             // fills background
             gc.setFill(black);
             gc.fillRect(0, 0, 500, 500);
 
-            // food one
-            gc.setFill(Color.SPRINGGREEN);
-            paintPoint(board.getFood().getPosition(), gc, 0);
-
-            // food two
-            if (board.getSuperFood() != null ) {
-                gc.setFill(Color.RED);
-                paintPoint(board.getSuperFood().getPosition(), gc, 0);
-            }
-
-            // snake
+            // init snake
             gc.setFill(Color.CORNSILK);
             for (Point p : board.getSnake().getPosition()) {
                 paintPoint(p, gc, 0);
             }
+        });
 
-            gc.fillText(String.format("Score: %s", board.getScore() * 10), 10, 490);
+        //paintScore(board.getScore());
+        paintFood(board.getFood().getPosition(), board.getFood().getPosition(), Color.SPRINGGREEN);
+    }
 
+    public void paintSnake(Point oldTail, Point currentHead) {
+        Platform.runLater(() -> {
+            GraphicsContext gc = this.getGraphicsContext2D();
+
+            gc.setFill(black);
+            paintPoint(oldTail, gc, 0);
+
+            gc.setFill(Color.CORNSILK);
+            paintPoint(currentHead, gc, 0);
+        });
+    }
+
+    public void paintFood(Point old, Point current, Color color) {
+        Platform.runLater(() -> {
+            GraphicsContext gc = this.getGraphicsContext2D();
+
+            if (old != null) {
+                gc.setFill(black);
+                paintPoint(old, gc, 0);
+            }
+
+            if (current != null) {
+                gc.setFill(color);
+                paintPoint(current, gc, 0);
+            }
+        });
+    }
+
+    public void paintScore(int score) {
+        Platform.runLater(() -> {
+            GraphicsContext gc = this.getGraphicsContext2D();
+
+            gc.setFill(black);
+            gc.fillRect(10, 480, 100, 10);
+
+            gc.setFill(Color.CORNSILK);
+            gc.fillText(String.format("Score: %s", score * 10), 10, 490);
         });
     }
 

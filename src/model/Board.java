@@ -22,6 +22,13 @@ public class Board {
         this.score = 0;
     }
 
+    public Board(Snake snake, Food food, Food superFood, int score) {
+        this.snake = snake;
+        this.food = food;
+        this.superFood = superFood;
+        this.score = score;
+    }
+
     public void update() {
 
         snake.update();
