@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class SnakeTest {
 
-    private Board board = new Board(100, 100);
+    private Board board = new Board(10, 10);
 
     @Test
     public void moveRight() {
@@ -189,5 +189,29 @@ public class SnakeTest {
 
         // then
         Assert.assertFalse(s.isSafe());
+    }
+
+    @Test
+    public void doseContainTest() {
+        // given
+        Snake s = new Snake(board, new Point(5,5), 1);
+
+        // when
+        Point point = new Point(5,5);
+
+        // then
+        Assert.assertTrue(s.contains(point));
+    }
+
+    @Test
+    public void doseNotContainTest() {
+        // given
+        Snake s = new Snake(board, new Point(5,5), 1);
+
+        // when
+        Point point = new Point(5,6);
+
+        // then
+        Assert.assertFalse(s.contains(point));
     }
 }

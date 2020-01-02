@@ -9,7 +9,7 @@ import controler.GameLoop;
 
 public class Main extends Application {
 
-    private final boolean simMode = false;
+    private final boolean simMode = true;
     private final String title = "Snake";
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
@@ -49,7 +49,7 @@ public class Main extends Application {
     }
 
     private void setUpGameLogic() {
-        board = new Board(WIDTH, HEIGHT);
+        board = new Board(WIDTH/10, HEIGHT/10);
         Simulator sim = null;
         if (simMode) {
             sim = new Simulator(board);

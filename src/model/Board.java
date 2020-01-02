@@ -13,9 +13,9 @@ public class Board {
     private int superFoodTimer;
     private int score;
 
-    public Board(int WIDTH, int HEIGHT) {
-        this.width = WIDTH/10;
-        this.height = HEIGHT/10;
+    public Board(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.snake = new Snake(this, new Point(width/2, height/2), 4);
         this.food = new Food(getEmptyRandomPoint(), 1);
         this.superFoodTimer = 0;
@@ -23,12 +23,17 @@ public class Board {
     }
 
     public Board(Snake snake, Food food, Food superFood, int score) {
+        this.width = 100/10;
+        this.height = 100/10;
         this.snake = snake;
         this.food = food;
         this.superFood = superFood;
         this.score = score;
     }
 
+    /**
+     * Updates the state of the board by one tick. This moves the snake and updates the food.
+     */
     public void update() {
 
         snake.update();

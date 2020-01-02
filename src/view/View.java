@@ -7,6 +7,8 @@ import javafx.scene.paint.Color;
 import model.Board;
 import model.Point;
 
+import java.util.List;
+
 public class View extends Canvas {
 
     private Color black = new Color(0.1, 0.1, 0.1, 1);
@@ -21,12 +23,12 @@ public class View extends Canvas {
 
             // fills background
             gc.setFill(black);
-            gc.fillRect(0, 0, 500, 500);
+            gc.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-            // init snake
+            // fills in init snake
             gc.setFill(Color.CORNSILK);
             for (Point p : board.getSnake().getPosition()) {
-                paintPoint(p, gc, 0);
+                paintPoint(p, gc, 0, 0);
             }
         });
 
@@ -34,15 +36,15 @@ public class View extends Canvas {
         paintFood(board.getFood().getPosition(), board.getFood().getPosition(), Color.SPRINGGREEN);
     }
 
-    public void paintSnake(Point oldTail, Point currentHead) {
+    public void paintSnake(List<Point> oldSnake, List<Point> currentSnake) {
         Platform.runLater(() -> {
             GraphicsContext gc = this.getGraphicsContext2D();
 
             gc.setFill(black);
-            paintPoint(oldTail, gc, 0);
+            paintPoint(oldSnake.get(0), gc, 0, 0);
 
             gc.setFill(Color.CORNSILK);
-            paintPoint(currentHead, gc, 0);
+            paintPoint(currentSnake.get(currentSnake.size()-1), gc, 0, 0);
         });
     }
 
@@ -52,12 +54,12 @@ public class View extends Canvas {
 
             if (old != null) {
                 gc.setFill(black);
-                paintPoint(old, gc, 0);
+                paintPoint(old, gc, 0, 0);
             }
 
             if (current != null) {
                 gc.setFill(color);
-                paintPoint(current, gc, 0);
+                paintPoint(current, gc, 0, 0);
             }
         });
     }
@@ -67,22 +69,22 @@ public class View extends Canvas {
             GraphicsContext gc = this.getGraphicsContext2D();
 
             gc.setFill(black);
-            gc.fillRect(10, 480, 100, 10);
+            gc.fillRect(10, this.getHeight() - 20, 100, 10);
 
             gc.setFill(Color.CORNSILK);
-            gc.fillText(String.format("Score: %s", score * 10), 10, 490);
+            gc.fillText(String.format("Score: %s", score * 10), 10, this.getHeight() - 10);
         });
     }
 
     public void paintEndGame(GraphicsContext gc) {
         Platform.runLater(() -> {
             gc.setFill(Color.AQUAMARINE);
-            gc.fillText("Game Over", 220, 250);
+            gc.fillText("Game Over", (this.getWidth() / 2) - 30, this.getHeight() / 2);
         });
     }
 
-    private void paintPoint(Point point, GraphicsContext gc, int offset) {
-        gc.fillRect((point.getXCord() * 10) + offset, (point.getYCord() * 10) + offset, 10 - offset, 10 - offset);
+    private void paintPoint(Point point, GraphicsContext gc, int offsetX, int offsetY) {
+        gc.fillRect((point.getXCord() * 10) + offsetX, (point.getYCord() * 10) + offsetY, 10 - offsetX, 10 - offsetY);
     }
 
 }

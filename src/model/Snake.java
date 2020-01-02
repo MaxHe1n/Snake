@@ -39,6 +39,10 @@ public class Snake {
         updateSafety();
     }
 
+    /**
+     * Sets the snake velocity in the y direction to -1. Every iteration the snake will update based on this velocity
+     * value.
+     */
     public void moveUp() {
         if (!(currentHorizontalVelocity == 0 && currentVerticalVelocity == 1)) {
             setHorizontalVelocity(0);
@@ -46,6 +50,10 @@ public class Snake {
         }
     }
 
+    /**
+     * Sets the snake velocity in the x direction to 1. Every iteration the snake will update based on this velocity
+     * value.
+     */
     public void moveRight() {
         if (!(currentHorizontalVelocity == -1 && currentVerticalVelocity == 0)) {
             setHorizontalVelocity(1);
@@ -53,6 +61,10 @@ public class Snake {
         }
     }
 
+    /**
+     * Sets the snake velocity in the y direction to 1. Every iteration the snake will update based on this velocity
+     * value.
+     */
     public void moveDown() {
         if (!(currentHorizontalVelocity == 0 && currentVerticalVelocity == -1)) {
             setHorizontalVelocity(0);
@@ -60,6 +72,10 @@ public class Snake {
         }
     }
 
+    /**
+     * Sets the snake velocity in the x direction to -1. Every iteration the snake will update based on this velocity
+     * value.
+     */
     public void moveLeft() {
         if (!(currentHorizontalVelocity == 1 && currentVerticalVelocity == 0)) {
             setHorizontalVelocity(-1);
@@ -76,18 +92,25 @@ public class Snake {
         return head;
     }
 
+    /**
+     *
+     * @return An ordered list of Point objects that represent the position of the snake.
+     * The last element in the list is the head.
+     */
     public List<Point> getPosition() {
         return position;
     }
 
+    /**
+     * @return Decides if the snake is in a valid position on the board.
+     */
     public boolean isSafe() {
         return isSafe;
     }
 
-    // TODO unit test
-    Boolean contains(Point option) {
-        for (Point point : position) {
-            if (option.equals(point)) {
+    boolean contains(Point point) {
+        for (Point p : position) {
+            if (point.equals(p)) {
                 return true;
             }
         }

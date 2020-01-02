@@ -11,7 +11,6 @@ public class GameLoop implements Runnable {
 
     private View view;
     private Board board;
-    private Board boardSave;
     private Simulator sim;
     private long delayTimer;
 
@@ -25,7 +24,7 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
 
-        boardSave = new Board(board.getSnake(), board.getFood(), board.getSuperFood(), board.getScore());
+        Board boardSave = new Board(board.getSnake(), board.getFood(), board.getSuperFood(), board.getScore());
         view.initPaint(board);
 
         while (board.getSnake().isSafe()) {
@@ -49,7 +48,7 @@ public class GameLoop implements Runnable {
                 }
 
                 view.paintFood(boardSave.getFood().getPosition(), board.getFood().getPosition(), Color.SPRINGGREEN);
-                view.paintSnake(boardSave.getSnake().getPosition().get(0), board.getSnake().getHead());
+                view.paintSnake(boardSave.getSnake().getPosition(), board.getSnake().getPosition());
 
                 boardSave = new Board(board.getSnake(), board.getFood(), board.getSuperFood(), board.getScore());
 
