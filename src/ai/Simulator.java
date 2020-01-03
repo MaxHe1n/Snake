@@ -27,15 +27,16 @@ public class Simulator {
         if (index < 0) {
             // UPDATE MODEL HERE - different models will produce different path solutions
             //path = new DFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition(), board.getSnake().getPosition().subList(0, board.getSnake().getPosition().size()-1));
-            path = new BFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition(), board.getSnake().getPosition().subList(0, board.getSnake().getPosition().size()-1));
+            //path = new BFS().search(graph, board.getSnake().getHead(), board.getFood().getPosition(), board.getSnake().getPosition().subList(0, board.getSnake().getPosition().size()-1));
             //path = new Hamiltonian().search(graph, board.getSnake().getHead());
+            path = new Dijkstra().search(graph, board.getSnake().getHead(), board.getFood().getPosition(), board.getSnake().getPosition().subList(0, board.getSnake().getPosition().size()-1));
+            resetGraph();
 
             if (path == null) {
                 index = -1;
             } else {
                 index = path.size()-2;
             }
-            resetGraph();
         }
 
         if (path != null) {
@@ -57,12 +58,12 @@ public class Simulator {
         Point p[][] = new Point[board.getWidth()][board.getHeight()];
         Graph<Point> g = new Graph<>();
         for (int x = 0; x < board.getWidth(); ++x) {
-            for (int y = 0; y < board.getWidth(); ++y) {
-                p[x][y] = new Point(x,y,false);
+            for (int y = 0; y < board.getHeight(); ++y) {
+                p[x][y] = new Point(x,y,-1, false);
             }
         }
         for (int x = 0; x < board.getWidth(); ++x) {
-            for (int y = 0; y < board.getWidth(); ++y) {
+            for (int y = 0; y < board.getHeight(); ++y) {
 
                 // Dose not allow board wrapping, no edges between edge vertices
                 if (y-1 >= 0) g.addEdge(p[x][y], p[x][y - 1], false);
@@ -79,6 +80,7 @@ public class Simulator {
         for(Point p : (Set<Point>) graph.map.keySet()) {
             p.setDiscovered(false);
             p.setParent(null);
+            p.setWeight(-1);
         }
     }
 

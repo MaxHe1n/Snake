@@ -4,19 +4,23 @@ public class Point {
 
     private int xCord;
     private int yCord;
-    // These 2 fields are used as apart of the path finding (AI)
+    // These 3 fields are used as apart of the path finding (AI)
     private boolean discovered;
     private Point parent;
+    private int weight;
 
-    public Point(int xCord, int yCord, boolean discovered) {
+    public Point(int xCord, int yCord, int weight, boolean discovered) {
         this.xCord = xCord;
         this.yCord = yCord;
         this.discovered = discovered;
+        this.weight = weight;
     }
 
     Point(int xCord, int yCord) {
         this.xCord = xCord;
         this.yCord = yCord;
+        this.discovered = false;
+        this.weight = -1;
     }
 
     public int getXCord() {
@@ -41,6 +45,14 @@ public class Point {
 
     public void setParent(Point parent) {
         this.parent = parent;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -74,6 +86,6 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format("Point: %d,%d", xCord, yCord);
+        return String.format("Point: %d,%d,%d,%s", xCord, yCord, weight, discovered);
     }
 }

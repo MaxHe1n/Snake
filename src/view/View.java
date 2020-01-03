@@ -80,6 +80,7 @@ public class View extends Canvas {
         Platform.runLater(() -> {
             gc.setFill(Color.AQUAMARINE);
             gc.fillText("Game Over", (this.getWidth() / 2) - 30, this.getHeight() / 2);
+            gc.fillText("Hit enter to play again!", (this.getWidth() / 2) - 60, (this.getHeight() / 2) + 15);
         });
     }
 
